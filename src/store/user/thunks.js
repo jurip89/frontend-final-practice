@@ -18,7 +18,7 @@ export const signUp = (name, email, password) => {
       dispatch(
         loginSuccess({ token: response.data.token, user: response.data.user })
       );
-      dispatch(getStoriesOfASpace({space:response.data.space}))
+      dispatch(getStoriesOfASpace({ space: response.data.space }));
       dispatch(showMessageWithTimeout("success", true, "account created"));
       dispatch(appDoneLoading());
     } catch (error) {
@@ -54,7 +54,7 @@ export const login = (email, password) => {
         email,
         password,
       });
-
+      dispatch(getStoriesOfASpace(response.data.space))
       dispatch(
         loginSuccess({ token: response.data.token, user: response.data.user })
       );
@@ -70,6 +70,7 @@ export const login = (email, password) => {
             text: error.response.data.message,
           })
         );
+        
       } else {
         console.log(error.message);
         dispatch(
@@ -100,9 +101,13 @@ export const getUserWithStoredToken = () => {
       const response = await axios.get(`${apiUrl}/auth/me`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-
+      console.log('thunk user',response.data.space)
+      const {space} =response.data;
+      const {stories } = space;
+        dispatch(getStoriesOfASpace({space,stories}))
       // token is still valid
       dispatch(tokenStillValid({ user: response.data }));
+      ///dispatch(getStoriesOfASpace())
       dispatch(appDoneLoading());
     } catch (error) {
       if (error.response) {
