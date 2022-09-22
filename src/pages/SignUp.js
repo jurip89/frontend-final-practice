@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { signUp } from "../store/user/thunks"
 import { selectToken } from "../store/user/selectors"
-
+import { selectSpace } from "../store/stories/selectors"
 export const SignUp = () => {
 
   const [name, setName] = useState("")
@@ -16,16 +16,18 @@ export const SignUp = () => {
   const navigate = useNavigate()
 
   const token = useSelector(selectToken)
-
+  const space = useSelector(selectSpace)
   useEffect(() => {
     if (token !== null) {
-      navigate("/");
+
+      navigate(`/spaces/${space.id}`);
     }
-  }, [token, navigate]);
+  }, [space.id,token, navigate]);
 
   const submitForm = (e) => {
     e.preventDefault()
     dispatch(signUp(name, email, password))
+
   }
 
   return (
