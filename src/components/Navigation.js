@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { selectToken, selectUser } from "../store/user/selectors"
 import { logOut } from "../store/user/slice"
 import { Link } from "react-router-dom"
+import { selectSpace } from "../store/stories/selectors"
 
 export const Navigation = () => {
 
@@ -13,7 +14,7 @@ export const Navigation = () => {
 
   const token = useSelector(selectToken)
   const user = useSelector(selectUser)
-  
+  const space = useSelector(selectSpace)
 
   
 
@@ -28,7 +29,7 @@ export const Navigation = () => {
         <span/>
       </Hamburger>
       <Menu open={open}>
-        {user && token && <MenuLink to={`/spaces/${user.id}`}>My Space</MenuLink>}
+        {user && token && <MenuLink to={`/spaces/${space.id}`}>My Space</MenuLink>}
         <MenuLink to="/empty2">Empty 2</MenuLink>
         {token 
           ? <button onClick={() => dispatch(logOut())}>Logout</button> 
