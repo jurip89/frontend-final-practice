@@ -5,13 +5,16 @@ export const FormJ = ({id}) => {
     const [name,setName]=useState('')
     const [content,setContent]=useState('')
     const [imageUrl, setImageUrl]=useState('')
-
+    const token = localStorage.getItem('token')
     const dispatch =useDispatch();
     
     const submit = (e)=>{
         e.preventDefault();
         !imageUrl && setImageUrl('https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3131&q=80')
-        dispatch(createStoryThunk(id,{name,content,imageUrl}))
+        dispatch(createStoryThunk(token,id,{name,content,imageUrl}))
+            setName('');
+            setContent('')
+            setImageUrl('')
     }
     
     return (
