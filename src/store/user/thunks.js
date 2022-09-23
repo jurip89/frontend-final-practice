@@ -15,8 +15,9 @@ export const signUp = (name, email, password) => {
         email,
         password,
       });
+      const newUser ={...response.data.user,space:response.data.space}
       dispatch(
-        loginSuccess({ token: response.data.token, user: response.data.user })
+        loginSuccess({ token: response.data.token, user: newUser})
       );
       dispatch(getStoriesOfASpace({ space: response.data.space }));
       dispatch(showMessageWithTimeout("success", true, "account created"));

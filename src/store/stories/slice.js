@@ -23,7 +23,8 @@ export const storiesSlice= createSlice({
         },
 
         editSpace:(state,action)=>{
-            state.stories.space=action.payload
+            
+            state.space=action.payload
         }
         
     }
