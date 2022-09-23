@@ -13,6 +13,9 @@ export const spacesSlice = createSlice({
         },
         makeSpace:(state,action)=>{
             state.spaces = [...state.spaces,action.payload]
+        },
+        editSpace:(state,action)=>{
+            state.spaces = action.payload
         }
     }
 })

@@ -42,7 +42,9 @@ export const createStoryThunk =
 
 export const editSpaceThunk = (id, body) => async (dispatch, getState) => {
   try {
-    const res = await axios.patch(`${apiUrl}/spaces/${id}`, body);
+    const token =localStorage.getItem('token')
+    const res = await axios.put(`${apiUrl}/spaces/${id}`, body,{headers: { Authorization: `Bearer ${token}` }});
+    console.log(res.data)
     dispatch(editSpace(res.data));
   } catch (error) {
     console.log(error);

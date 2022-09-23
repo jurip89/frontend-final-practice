@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getStoriesOfASpaceThunk,deleteStoryThunk } from "../store/stories/thunks";
 import { selectSpace, selectStories } from "../store/stories/selectors";
 import { selectUser } from "../store/user/selectors";
-import { FormJ } from "../components";
+import { FormJ,FormSpace } from "../components";
 export const DetailPage = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -15,13 +15,17 @@ export const DetailPage = () => {
   );
   const user = useSelector(selectUser);
   const [toggle, setToggle] = useState(false);
+  const [toggle2, setToggle2] = useState(false);
     const token = localStorage.getItem('token')
     
   const handleClick = () => {
     setToggle(!toggle);
   };
+  const handleClick2 = () => {
+    setToggle2(!toggle2);
+  };
   useEffect(() => {
-    setTimeout(()=>{dispatch(getStoriesOfASpaceThunk(id))},50)
+    setTimeout(()=>{dispatch(getStoriesOfASpaceThunk(id))},30)
     ;
   }, [dispatch, id]);
 
@@ -29,6 +33,16 @@ export const DetailPage = () => {
     <div style={{backgroundColor:space.backgroundColor,color:space.color}}>
       <h2>{space.title}</h2>
       <p>{space.description ? space.description : "No description yet"}</p>
+      {user && user.id === space.userId && (
+        <div>
+          <button onClick={handleClick2}>Edit Space bro</button>
+          <div style={{ display: !toggle2 ? "none" : "block" }}>
+            <FormSpace id={id} />
+          </div>
+        </div>
+      )}
+
+
       {user && user.id === space.userId && (
         <div>
           <button onClick={handleClick}>Post a cool story bro</button>
