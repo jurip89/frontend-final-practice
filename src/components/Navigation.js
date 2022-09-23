@@ -21,7 +21,7 @@ export const Navigation = () => {
   return(
     <Nav>
       <Logo href="/">
-        Codaisseur<span>templates</span>
+      Cool story <span>bro</span>
       </Logo>
       <Hamburger onClick={() => setOpen(!open)}>
         <span/>
@@ -29,7 +29,7 @@ export const Navigation = () => {
         <span/>
       </Hamburger>
       <Menu open={open}>
-        {user && token && <MenuLink to={`/spaces/${space.id}`}>My Space</MenuLink>}
+        {user && space.id && <MenuLink to={`/spaces/${user.space.id}`}>My Space</MenuLink>}
         <MenuLink to="/empty2">Empty 2</MenuLink>
         {token 
           ? <button onClick={() => dispatch(logOut())}>Logout</button> 

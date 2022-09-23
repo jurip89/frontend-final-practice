@@ -54,7 +54,7 @@ export const login = (email, password) => {
         email,
         password,
       });
-      dispatch(getStoriesOfASpace(response.data.space))
+      dispatch(getStoriesOfASpace(response.data))
       dispatch(
         loginSuccess({ token: response.data.token, user: response.data.user })
       );

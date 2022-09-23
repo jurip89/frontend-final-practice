@@ -23,7 +23,7 @@ useEffect(()=>{
         <div key={el.id} style={{color:el.color,backgroundColor:el.backgroundColor}}>
           <h4>{el.title}</h4>
           <p>{el.description}</p>
-          <Link to={`spaces/${el.id}`}>Visit space</Link>
+        <Link to={`spaces/${el.id}`} style={LinkWord}><button>Visit space</button></Link>
         </div>
         ))}
       </Container>

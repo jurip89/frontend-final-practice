@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getStoriesOfASpaceThunk } from "../store/stories/thunks";
+import { getStoriesOfASpaceThunk,deleteStoryThunk } from "../store/stories/thunks";
 import { selectSpace, selectStories } from "../store/stories/selectors";
 import { selectUser } from "../store/user/selectors";
 import { FormJ } from "../components";
@@ -15,16 +15,18 @@ export const DetailPage = () => {
   );
   const user = useSelector(selectUser);
   const [toggle, setToggle] = useState(false);
-
+    const token = localStorage.getItem('token')
+    
   const handleClick = () => {
     setToggle(!toggle);
   };
   useEffect(() => {
-    dispatch(getStoriesOfASpaceThunk(id));
+    setTimeout(()=>{dispatch(getStoriesOfASpaceThunk(id))},50)
+    ;
   }, [dispatch, id]);
 
   return (
-    <div>
+    <div style={{backgroundColor:space.backgroundColor,color:space.color}}>
       <h2>{space.title}</h2>
       <p>{space.description ? space.description : "No description yet"}</p>
       {user && user.id === space.userId && (
@@ -46,6 +48,7 @@ export const DetailPage = () => {
               src={el.imageUrl}
               alt={el.name}
             />
+            { space?.userId === user?.id && <button onClick={()=>dispatch(deleteStoryThunk(space.id,el.id,token))}>Delete</button>}
           </div>
         ))}
       </div>
